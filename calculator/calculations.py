@@ -1,18 +1,23 @@
-from typing import List, Type
+from typing import Type
 from calculator.calculation import Calculation
+from calculator.operations import add, subtract, multiply, divide
 
 class Calculations:
-    history: List[Calculation] = []
+    """Class to manage a history of calculations"""
+    history = []
 
-    @classmethod
-    def add_calculation(cls, calculation: Calculation) -> None:
-        cls.history.append(calculation)
+    @staticmethod
+    def add_calculation(calculation: Type[Calculation]):
+        """Add a calculation to the history"""
+        Calculations.history.append(calculation)
 
-    @classmethod
-    def get_last_calculation(cls) -> Calculation:
-        return cls.history[-1]
+    @staticmethod
+    def clear_history():
+        """Clear the calculation history"""
+        Calculations.history.clear()
 
-    @classmethod
-    def clear_history(cls) -> None:
-        cls.history.clear()
+    @staticmethod
+    def count_history():
+        """Return the number of calculations in history"""
+        return len(Calculations.history)
 
