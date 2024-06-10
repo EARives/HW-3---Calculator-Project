@@ -1,13 +1,12 @@
 from typing import Type
 from calculator.calculation import Calculation
-from calculator.operations import add, subtract, multiply, divide
 
 class Calculations:
     """Class to manage a history of calculations"""
     history = []
 
     @staticmethod
-    def add_calculation(calculation: Type[Calculation]):
+    def add_calculation(calculation: Calculation):
         """Add a calculation to the history"""
         Calculations.history.append(calculation)
 
@@ -20,4 +19,3 @@ class Calculations:
     def count_history():
         """Return the number of calculations in history"""
         return len(Calculations.history)
-
