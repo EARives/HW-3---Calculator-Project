@@ -12,4 +12,9 @@ class Calculation:
         """Perform the calculation"""
         return self.operation(self.a, self.b)
 
+    def __repr__(self):
+        """String representation of Calculation object"""
+        return f"Calculation({self.a}, {self.b}, {self.operation.__name__})"
+
+
 
