@@ -1,23 +1,30 @@
-from decimal import Decimal
 import pytest
+from decimal import Decimal
 from calculator.calculation import Calculation
 from calculator.operations import add, subtract, multiply, divide
 
-@pytest.mark.parametrize("a, b, operation, expected", [
-    (Decimal('10'), Decimal('5'), add, Decimal('15')),
-    (Decimal('10'), Decimal('5'), subtract, Decimal('5')),
-    (Decimal('10'), Decimal('5'), multiply, Decimal('50')),
-])
-def test_calculation_operations(a, b, operation, expected):
-    calc = Calculation(a, b, operation)
-    assert calc.perform() == expected, f"Failed {operation.__name__} operation with {a} and {b}"
+def test_calculation_operations():
+    """Test various calculation operations"""
+    calc = Calculation(Decimal(1), Decimal(2), add)
+    assert calc.perform() == 3
+
+    calc = Calculation(Decimal(5), Decimal(3), subtract)
+    assert calc.perform() == 2
+
+    calc = Calculation(Decimal(2), Decimal(3), multiply)
+    assert calc.perform() == 6
+
+    calc = Calculation(Decimal(10), Decimal(2), divide)
+    assert calc.perform() == 5
 
 def test_calculation_repr():
+    """Test the string representation (__repr__) of the Calculation class"""
     calc = Calculation(Decimal('10'), Decimal('5'), add)
     expected_repr = "Calculation(10, 5, add)"
-    assert repr(calc) == expected_repr
+    assert calc.__repr__() == expected_repr
 
 def test_divide_by_zero():
+    """Test division by zero to ensure it raises a ValueError"""
     calc = Calculation(Decimal('10'), Decimal('0'), divide)
     with pytest.raises(ValueError, match="Cannot divide by zero"):
         calc.perform()
